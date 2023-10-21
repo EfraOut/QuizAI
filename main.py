@@ -80,7 +80,11 @@ class Program:
                     f.write(json_object)
 
             case "3":
-                pass
+                print("Which topic would you like to remove?")
+                for i in range(len(self.__topics)):
+                    print(f"{i + 1} {self.__topics[i]}")
+                choice = int(input("> "))
+                del self.__topics[choice - 1]
 
             case "4":
                 self.__running = False
