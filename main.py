@@ -10,7 +10,7 @@ from text_to_quiz import *
 import json
 
 #OpenAI API Key for GPT-3.5-turbo
-API_KEY = "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"
+API_KEY = """REPLACE WITH API KEY"""
 
 class Program:
     __topics: list = list()
@@ -20,9 +20,12 @@ class Program:
         """
         Show to the user what they can do
         """
-        print("1. Study")
-        print("2. Add")
-        print("3. Quit")
+        print("Welcome to QuizAI!")
+        print("Please select an option:")
+        print("1. Review a subject")
+        print("2. Add a subject")
+        print("3. Remove a subject")
+        print("4. Quit")
 
     def _get_option(self) -> str:
         """
@@ -37,20 +40,25 @@ class Program:
         """
         match option:
             case "1":
-                # Getting the correct subject from the user.
-                print("What do you want to study?")
-                for i in range(len(self.__topics)):
-                    print(f"{i + 1} {self.__topics[i]}")
-                choice = int(input("> "))
+                if len(self.__topics) != 0:
 
-                # Making a decision on what to do
-                # with the selected subject.
-                subject = self.__topics[choice - 1]
-                print("Would you like to review the topic? Y/N")
-                choice = input("> ")
-                if choice.upper() == "Y":
-                    subject.display_summary()
-                subject.take_quiz()
+                    # Getting the correct subject from the user.
+                    print("What do you want to study?")
+                    for i in range(len(self.__topics)):
+                        print(f"{i + 1} {self.__topics[i]}")
+                    choice = int(input("> "))
+
+                    # Making a decision on what to do
+                    # with the selected subject.
+                    subject = self.__topics[choice - 1]
+                    print("Would you like to review the topic? Y/N")
+                    choice = input("> ")
+                    if choice.upper() == "Y":
+                        subject.display_summary()
+                    subject.take_quiz()
+                else:
+                    print("You don't have anything to review!")
+                    print("Please add a subject first")
 
             case "2":
                 print("You will be asked to record an audio")
@@ -72,6 +80,9 @@ class Program:
                     f.write(json_object)
 
             case "3":
+                pass
+
+            case "4":
                 self.__running = False
                 print("Hope to see you again soon!")
 
